@@ -37,13 +37,13 @@ exports.handler = (event, context, callback) => {
     configureLogger(context, callback); // eslint-disable-line no-use-before-define
 
     // CloudWatch Logs data is base64 encoded so decode here
-    const payload = new Buffer.from(event.awslogs.data, 'base64');
+    const payload = Buffer.from(event.awslogs.data, 'base64');
     // CloudWatch Logs are gzip compressed so expand here
     zlib.gunzip(payload, (error, result) => {
         if (error) {
             callback(error);
         } else {
-            const parsed = JSON.parse(result.toString('ascii'));
+            const parsed = JSON.parse(result.toString('utf8'));
             console.log('Decoded payload:', JSON.stringify(parsed, null, 2));
             let count = 0;
             if (parsed.logEvents) {
