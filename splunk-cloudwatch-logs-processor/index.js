@@ -39,7 +39,8 @@ exports.handler = (event, context, callback) => {
     console.log('Received context:', JSON.stringify(context, null, 2));
 
     // CloudWatch Logs data is base64 encoded so decode here
-    const payload = new Buffer(event.awslogs.data, 'base64');
+    const payload = new Buffer.from(event.awslogs.data, 'base64');
+
     // CloudWatch Logs are gzip compressed so expand here
     zlib.gunzip(payload, (error, result) => {
         if (error) {
