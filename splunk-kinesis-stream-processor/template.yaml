@@ -42,7 +42,7 @@ Resources:
       Type: 'AWS::Serverless::Function'
       Properties:
         Handler: index.handler
-        Runtime: nodej10.x
+        Runtime: nodej18.x
         CodeUri: ./splunk-kinesis-stream-processor.zip
         Policies:
           - KinesisStreamReadPolicy:
