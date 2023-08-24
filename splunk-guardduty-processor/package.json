@@ -7,7 +7,7 @@
     "lint": "eslint -c ../.eslintrc --ignore-path ../.eslintignore .",
     "test": "node integration-test.js",
     "pretest": "npm run lint",
-    "build:zip": "zip -i \\*.js \\*.json -r splunk-guardduty-processor.zip index.js $(npm list --prod --parseable | sed -nE 's/.*\\/(node_modules\\/.*)/\\1/p' | awk '{printf \"%s \", $0;}')",
+    "build:zip": "zip -i \\*.js \\*.json -r splunk-guardduty-processor.zip index.js $(npm list --prod --parseable --depth=Infinity | sed -nE 's/.*\\/(node_modules\\/.*)/\\1/p' | awk '{printf \"%s \", $0;}')",
     "build:template": "aws cloudformation package --template template.yaml --s3-bucket $npm_config_sam_s3_bucket_name --output-template-file template.output.yaml",
     "build:deployment": "aws cloudformation deploy --template-file $(pwd)/template.output.yaml --parameter-overrides SplunkHttpEventCollectorURL=\"$npm_config_parm_hec_url\" SplunkHttpEventCollectorToken=\"$npm_config_parm_hec_token\"  --stack-name $npm_config_parm_stack_name --capabilities \"CAPABILITY_IAM\"",
     "build": "npm run build:zip && npm run build:template && npm run build:deployment",

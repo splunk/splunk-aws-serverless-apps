@@ -2,7 +2,7 @@
   "lambda": {
     "FunctionName": "splunk-guardduty-processor",
     "Handler": "index.handler",
-    "Runtime": "nodejs10.x",
+    "Runtime": "nodejs16.x",
     "Description": "Stream findings from GuardDuty to Splunk's HTTP event collector",
     "Environment": {
       "Variables": {

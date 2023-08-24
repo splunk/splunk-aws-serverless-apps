@@ -2,7 +2,7 @@
   "lambda": {
     "FunctionName": "splunk-logging",
     "Handler": "index.handler",
-    "Runtime": "nodejs10.x",
+    "Runtime": "nodejs16.x",
     "Description": "Demonstrates logging from AWS Lambda code to Splunk's HTTP event collector",
     "Environment": {
       "Variables": {

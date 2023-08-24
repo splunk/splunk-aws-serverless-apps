@@ -2,7 +2,7 @@
   "lambda": {
     "FunctionName": "splunk-dynamodb-stream-processor",
     "Handler": "index.handler",
-    "Runtime": "nodejs10.x",
+    "Runtime": "nodejs16.x",
     "Description": "Stream AWS DynamoDB table activity from DynamoDB Stream to Splunk's HTTP event collector",
     "Environment": {
       "Variables": {
