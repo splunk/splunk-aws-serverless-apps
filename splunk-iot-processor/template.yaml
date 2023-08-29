@@ -37,7 +37,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties: 
       Handler: index.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs16.x
       CodeUri: ./splunk-iot-processor.zip
       Description: Capture events from IOT topic and send to Splunk HTTP event collector
       MemorySize: 512

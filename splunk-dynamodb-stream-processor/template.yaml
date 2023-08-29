@@ -47,7 +47,7 @@ Resources:
       Type: 'AWS::Serverless::Function'
       Properties:
         Handler: index.handler
-        Runtime: nodejs10.x
+        Runtime: nodejs16.x
         CodeUri: ./splunk-dynamodb-stream-processor.zip
         Policies:
           - DynamoDBStreamReadPolicy:

@@ -43,7 +43,7 @@ Resources:
     Properties:
       Description: Stream CLB events from S3 to Splunk HTTP event collector
       Handler: index.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs16.x
       CodeUri: ./splunk-elb-classic-access-logs-processor.zip
       Policies:
         - S3CrudPolicy:
