@@ -1,15 +1,18 @@
-node_modules
-npm-debug.log
+# apple spew
 .DS_Store
-# environment setting file 
+
+# environment setting file
 .npmrc
 
 # backup for local testing
 *.backup
 
-# Artifacts from build & test
+# artifacts from build & test
 *.zip
-packaged-template.yaml
-template.output.yaml
 lib
+node_modules
+npm-debug.log
+package-lock.json
+packaged-template.yaml
 setEnv.sh
+template.output.yaml
