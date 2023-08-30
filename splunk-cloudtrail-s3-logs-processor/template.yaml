@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >
+    Serverless application to stream access logs of Cloudtrail from S3 to Splunk HTTP Event Collector (HEC).
+
+    This SAM template creates the Lambda function & associated policy + IAM role, and new S3 bucket
+    with enabled Events notification to this Lambda function. Direct your load balancers access logs to this newly created S3 Bucket.
+    To enable access logs on classic load balancers, refer to AWS docs:
+    http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-access-logs.html
+
+    Last Modified: 12 April, 2023
+    Authors: Roy Arsan <roy@splunk.com>, Tarik Makota <tmak@amazon.com>, Russell Uman <ruman@splunk.com>
+
+Parameters:
+  S3CTLogsBucketName:
+    Type: "String"
+    Description: "Name of S3 bucket that will store access logs. This bucket should already exist."
+  
+  S3Prefix:
+    Type: "String"
+    Description: "Optional prefix to limit the notifications to objects with keys that start with matching characters. e.g. uploadedImages/"
+
+  S3Suffix:
+    Type: "String"
+    Description: "Optional suffix to limit the notifications to objects with keys that end with matching characters.. e.g. .jpg"
+
+  SplunkHttpEventCollectorURL:
+    Type: "String"
+    Description: "URL address of your Splunk HTTP event collector endpoint"
+
+  SplunkHttpEventCollectorToken:
+    Type: "String"
+    Description: "Token of your Splunk HTTP event collector endpoint"
+    
+Outputs:
+    SplunkCTLogsProcessor:
+      Description: "Splunk S3 Bucket Stream Lambda Function ARN"
+      Value: !Ref SplunkCTProcessorFunction
+
+Resources:
+  SplunkCTProcessorFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Stream CT events from S3 to Splunk HTTP event collector
+      Handler: index.handler
+      Runtime: nodejs16.x
+      CodeUri: ./splunk-cloudtrail-s3-logs-processor.zip
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref S3CTLogsBucketName
+      MemorySize: 512
+      Timeout: 10
+      Environment:
+        Variables:
+          SPLUNK_HEC_URL: !Ref SplunkHttpEventCollectorURL
+          SPLUNK_HEC_TOKEN: !Ref SplunkHttpEventCollectorToken

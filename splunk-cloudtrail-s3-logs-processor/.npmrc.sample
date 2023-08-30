@@ -1,0 +1,8 @@
+sam_s3_bucket_name = fake-bucket-name
+parm_s3_logs_bucket_name = fake-bucket-name
+parm_s3_prefix = 
+parm_s3_suffix = 
+parm_hec_url = https://192.168.0.0:8088/services/collector
+# note that an explicit port number is required above
+parm_hec_token = FAKE-FAKE-FAKE
+parm_stack_name = fakeStackName

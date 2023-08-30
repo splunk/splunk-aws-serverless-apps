@@ -1,0 +1,45 @@
+{
+  "name": "splunk-cloudtrail-s3-logs-processor",
+  "version": "1.0.0",
+  "description": "AWS Lambda function blueprint to stream Cloudtrail logs from S3 to Splunk's HTTP event collector",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint -c ../.eslintrc --ignore-path ../.eslintignore .",
+    "test": "node integration-test.js",
+    "postinstall": "node -e \"var s='../lib',d='lib',fs=require('fs');fs.exists(d,function(e){e||fs.symlinkSync(s,d,'dir')});\"",
+    "pretest": "npm run lint",
+    "build:zip": "zip -i \\*.js \\*.json -r splunk-cloudtrail-s3-logs-processor.zip index.js $(npm list --prod --parseable --depth=Infinity | sed -nE 's/.*\\/(node_modules\\/.*)/\\1/p' | awk '{printf \"%s \", $0;}')",
+    "build:template": "aws cloudformation package --template template.yaml --s3-bucket $npm_config_sam_s3_bucket_name --output-template-file template.output.yaml",
+    "build:deployment": "aws cloudformation deploy --template-file $(pwd)/template.output.yaml --parameter-overrides S3CTLogsBucketName=\"$npm_config_parm_s3_logs_bucket_name\" S3EventType=\"$npm_config_parm_s3_event_type\" S3Prefix=\"$npm_config_parm_s3_prefix\" S3Suffix=\"$npm_config_parm_s3_suffix\" SplunkHttpEventCollectorURL=\"$npm_config_parm_hec_url\" SplunkHttpEventCollectorToken=\"$npm_config_parm_hec_token\"  --stack-name $npm_config_parm_stack_name --capabilities \"CAPABILITY_IAM\"",
+    "build": "npm run build:zip && npm run build:template && npm run build:deployment",
+    "clean:zip": "rm -f splunk-cloudtrail-s3-logs-processor.zip",
+    "clean:template": "rm -f template.output.yaml",
+    "clean:deployment": "aws cloudformation delete-stack --stack-name $npm_config_parm_stack_name",
+    "clean": "npm run clean:zip && npm run clean:template && npm run clean:deployment"
+  },
+  "keywords": [
+    "splunk",
+    "lambda",
+    "cloudtrail",
+    "hec"
+  ],
+  "authors": [
+    "Roy Arsan <rarsan@splunk.com> (https://www.splunk.com)",
+    "Tarik Makota <tmak@amazon.com> (https://aws.amazon.com)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "help": "^3.0.2",
+    "splunk-logging": "^0.9.3"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.89.0",
+    "babel-eslint": "^7.1.0",
+    "eslint": "^3.12.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1"
+  }
+}
