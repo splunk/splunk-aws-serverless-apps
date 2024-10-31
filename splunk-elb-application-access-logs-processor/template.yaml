@@ -45,7 +45,7 @@ Resources:
     Properties:
       Description: Stream ALB events from S3 to Splunk HTTP event collector
       Handler: index.handler
-      Runtime: nodejs10.x
+      Runtime: nodejs18.x
       CodeUri: ./splunk-elb-application-access-logs-processor.zip
       Policies:
         - S3CrudPolicy:
