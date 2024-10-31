@@ -30,16 +30,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "splunk-logging": "^0.9.3"
+    "splunk-logging": "^0.11.1"
   },
   "devDependencies": {
     "aws-sdk": "^2.89.0",
-    "babel-eslint": "^7.1.0",
-    "eslint": "^3.12.0",
-    "eslint-config-airbnb": "^13.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^9.10.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-react": "^7.36.1"
   }
 }
