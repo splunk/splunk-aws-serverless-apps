@@ -1,6 +1,6 @@
 {
   "name": "splunk-logging",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AWS Lambda function blueprint to demonstrate logging from AWS Lambda code to Splunk's HTTP event collector",
   "main": "index.js",
   "scripts": {
